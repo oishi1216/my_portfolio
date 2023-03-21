@@ -1,4 +1,5 @@
-import { FC, useState } from "react"
+import React from 'react';
+import { FC, useState } from "react";
 
 export const Header: FC = () => {
     const [clicked, setClicked] = useState<number>(10);

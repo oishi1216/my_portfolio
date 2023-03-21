@@ -58,3 +58,18 @@ header ul .active:hover {
   background-color: royalblue;
   color: #fff;
 }
+#home {
+  background-color: blueviolet;
+}
+#about {
+  background-color: cadetblue;
+}
+#skills {
+  background-color: coral;
+}
+#works {
+  background-color: darkseagreen;
+}
+#contact {
+  background-color: palevioletred;
+}

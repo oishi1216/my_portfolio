@@ -1,9 +1,14 @@
-import { FC } from "react";
+import React from 'react';
+import { forwardRef } from "react";
 
-export const Contact: FC = () => {
+type Props = {
+    id: string
+}
+
+export const Contact = forwardRef<HTMLDivElement, Props>(({ id } , ref) => {
     return(
-        <div id="contact" className="wrapper">
+        <div id={id} ref={ref} className='wrapper'>
 
         </div>
     )
-}
+});
