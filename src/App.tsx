@@ -32,12 +32,12 @@ const App: FC = () => {
       event.preventDefault()
       let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth
       if (delta > 0) {
-          delta += screenRef.current!.scrollLeft
-          delta = Math.round (delta / window.innerWidth) * window.innerWidth
+          delta += Math.ceil(screenRef.current!.scrollLeft)
           console.log(delta)
+          delta = Math.floor (delta / window.innerWidth) * window.innerWidth
       } else {
           delta += screenRef.current!.scrollLeft
-          delta = Math.round (delta / window.innerWidth) * window.innerWidth
+          delta = Math.ceil (delta / window.innerWidth) * window.innerWidth
       }
       screenRef.current!.scrollLeft = delta
     }
