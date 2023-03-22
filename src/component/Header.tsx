@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FC, useState } from "react";
 
 type Props = {
     currentTab: string
 }
 
-export const Header: FC<Props> = ({ currentTab }) => {
+export const Header: FC<Props> = memo(({ currentTab }) => {
 
     const navLists: { text: string; link: string; class: string }[] = [
         { text: 'Home', link: '#home', class: 'home' },
@@ -25,4 +25,4 @@ export const Header: FC<Props> = ({ currentTab }) => {
             </nav>
         </header>
     )
-}
+})
