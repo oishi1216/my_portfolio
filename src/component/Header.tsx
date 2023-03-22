@@ -1,7 +1,11 @@
 import React from 'react';
 import { FC, useState } from "react";
 
-export const Header: FC = () => {
+type Props = {
+    currentTab: string
+}
+
+export const Header: FC<Props> = ({ currentTab }) => {
     const [clicked, setClicked] = useState<number>(10);
     const onClickClassToggle = (index: number) => {
         setClicked(index)

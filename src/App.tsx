@@ -22,7 +22,8 @@ const App: FC = () => {
   const activeCurrentTab = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        console.log(entry)
+        console.log(entry.target.id)
+        setCurrentTab(entry.target.id)
       }
     })
   }
@@ -33,7 +34,6 @@ const App: FC = () => {
       let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth
       if (delta > 0) {
           delta += Math.ceil(screenRef.current!.scrollLeft)
-          console.log(delta)
           delta = Math.floor (delta / window.innerWidth) * window.innerWidth
       } else {
           delta += screenRef.current!.scrollLeft
@@ -43,13 +43,13 @@ const App: FC = () => {
     }
   }, [])
 
-    useIntersectionObserver([homeRef, aboutRef, skillsRef, worksRef, contactRef], activeCurrentTab);
+    useIntersectionObserver([homeRef, aboutRef, skillsRef, worksRef, contactRef], activeCurrentTab, { root: null, rootMargin: "0px", threshold: 1.0 });
 
   return (
     <>
       <div ref={screenRef} className='screen'>
         <div className='container'>
-          <Header />
+          <Header currentTab={currentTab} />
           <Home ref={homeRef} id='home' />
           <About ref={aboutRef} id='about' />
           <Skills ref={skillsRef} id='skills' />
