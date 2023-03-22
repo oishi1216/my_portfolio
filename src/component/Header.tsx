@@ -6,24 +6,20 @@ type Props = {
 }
 
 export const Header: FC<Props> = ({ currentTab }) => {
-    const [clicked, setClicked] = useState<number>(10);
-    const onClickClassToggle = (index: number) => {
-        setClicked(index)
-    };
 
-    const navLists: { text: string; link: string; }[] = [
-        { text: 'Home', link: '#home' },
-        { text: 'About', link: '#about' },
-        { text: 'Skills', link: '#skills' },
-        { text: 'Works', link: '#works' },
-        { text: 'Contact', link: '#contact' },
+    const navLists: { text: string; link: string; class: string }[] = [
+        { text: 'Home', link: '#home', class: 'home' },
+        { text: 'About', link: '#about', class: 'about' },
+        { text: 'Skills', link: '#skills', class: 'skills' },
+        { text: 'Works', link: '#works', class: 'works' },
+        { text: 'Contact', link: '#contact', class: 'contact' },
     ]
     return(
         <header className="header">
             <nav>
                 <ul className="headerNavWrapper">
                     {navLists.map((item, index) => {
-                        return <li key={index}><a onClick={() => onClickClassToggle(index)} href={item.link} className={clicked === index ? 'active': ''}>{item.text}</a></li>
+                        return <li key={index}><a href={item.link} className={currentTab === item.class ? 'active': ''}>{item.text}</a></li>
                     })}
                 </ul>
             </nav>
