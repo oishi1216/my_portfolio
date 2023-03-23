@@ -3,10 +3,10 @@ import { motion, useAnimation } from "framer-motion";
 
 type Props = {
     children: ReactNode;
-    currentTab: string;
+    isIntersecting: boolean;
 }
 
-export const SlideScaleChange: FC<Props> = ({ children, currentTab }) => {
+export const SlideScaleChange: FC<Props> = ({ children, isIntersecting }) => {
     const control = useAnimation();
     const scaleChange = {
         reduction: {
@@ -20,13 +20,12 @@ export const SlideScaleChange: FC<Props> = ({ children, currentTab }) => {
     }
 
     useEffect(() => {
-        console.log(currentTab)
-        if(!currentTab) {
+        if(!isIntersecting) {
             control.start("reduction");
         } else {
             control.start("enlargement");
         }
-    }, [currentTab])
+    }, [isIntersecting])
 
     return(
         <motion.div initial='enlargement' animate={control} variants={scaleChange}>{ children }</motion.div>

@@ -11,6 +11,7 @@ import { useIntersectionObserver } from './hooks/useIntersectionObserver'
 
 const App: FC = () => {
   const [ currentTab, setCurrentTab ] = useState<string>('home');
+  const [ isIntersecting, setIsIntersecting ] = useState<boolean>(true)
 
   const screenRef = useRef<HTMLDivElement>(null)
   const homeRef = useRef<HTMLDivElement>(null)
@@ -21,7 +22,7 @@ const App: FC = () => {
 
   const activeCurrentTab = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
-      console.log(entry.isIntersecting)
+      setIsIntersecting(entry.isIntersecting)
       if (entry.isIntersecting) {
         setCurrentTab(entry.target.id)
       }
@@ -43,14 +44,14 @@ const App: FC = () => {
     }
   }, [])
 
-    useIntersectionObserver([homeRef, aboutRef, skillsRef, worksRef, contactRef], activeCurrentTab, { root: null, rootMargin: "0px", threshold: 0.95 });
+    useIntersectionObserver([contactRef, worksRef, skillsRef, aboutRef, homeRef], activeCurrentTab, { root: null, rootMargin: "0px", threshold: 0.99 });
 
   return (
     <>
       <div ref={screenRef} className='screen'>
         <div className='container'>
           <Header currentTab={currentTab} />
-          <Home ref={homeRef} id='home' currentTab={currentTab} />
+          <Home ref={homeRef} id='home' isIntersecting={isIntersecting} />
           <About ref={aboutRef} id='about' />
           <Skills ref={skillsRef} id='skills' />
           <Works ref={worksRef} id='works' />

@@ -4,13 +4,14 @@ import { SlideScaleChange } from '../utils/SlideScaleChange';
 
 type Props = {
     id: string;
-    currentTab: string;
+    isIntersecting: boolean;
 }
 
-export const Home = forwardRef<HTMLDivElement, Props>(({ id, currentTab } , ref) => {
+export const Home = forwardRef<HTMLDivElement, Props>(({ id, isIntersecting } , ref) => {
+    console.log(isIntersecting)
     return(
         <div id={id} ref={ref} className='wrapper'>
-            <SlideScaleChange currentTab={currentTab}>
+            <SlideScaleChange isIntersecting={isIntersecting}>
                 <div className='homeContainer'>
 
                 </div>
