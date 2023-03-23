@@ -1,5 +1,5 @@
-import React, { FC, ReactNode } from 'react';
-import { animate, motion } from "framer-motion";
+import React, { FC, ReactNode, useEffect } from 'react';
+import { motion, useAnimation } from "framer-motion";
 
 type Props = {
     children: ReactNode;
@@ -7,18 +7,28 @@ type Props = {
 }
 
 export const SlideScaleChange: FC<Props> = ({ children, currentTab }) => {
+    const control = useAnimation();
     const scaleChange = {
-        initial: {
-            height: '80vh',
-            width: '80vw'
+        reduction: {
+            height: '80%',
+            width: '80%'
         },
-        animate: {
-            height: 'calc(100vh - 4rem)',
-            width: '100vw'
+        enlargement: {
+            height: '100%',
+            width: '100%'
         }
     }
 
+    useEffect(() => {
+        console.log(currentTab)
+        if(!currentTab) {
+            control.start("reduction");
+        } else {
+            control.start("enlargement");
+        }
+    }, [currentTab])
+
     return(
-        <motion.div initial='initial' animate='animate' variants={scaleChange}>{ children }</motion.div>
+        <motion.div initial='enlargement' animate={control} variants={scaleChange}>{ children }</motion.div>
     );
 }
