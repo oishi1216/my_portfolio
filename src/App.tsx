@@ -21,8 +21,8 @@ const App: FC = () => {
 
   const activeCurrentTab = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
+      console.log(entry)
       if (entry.isIntersecting) {
-        console.log(entry.target.id)
         setCurrentTab(entry.target.id)
       }
     })
@@ -50,7 +50,7 @@ const App: FC = () => {
       <div ref={screenRef} className='screen'>
         <div className='container'>
           <Header currentTab={currentTab} />
-          <Home ref={homeRef} id='home' />
+          <Home ref={homeRef} id='home' currentTab={currentTab} />
           <About ref={aboutRef} id='about' />
           <Skills ref={skillsRef} id='skills' />
           <Works ref={worksRef} id='works' />
