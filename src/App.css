@@ -20,10 +20,10 @@
   height: calc(100% - 4rem);
   margin-top: 4rem;
 }
-
 header {
   display: flex;
   position: fixed;
+  z-index: 1;
   justify-content: center;
   width: 100%;
   height: 4rem;
@@ -83,6 +83,7 @@ header ul a::before {
   z-index: 2;
 }
 .homeContainer {
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: blueviolet;
@@ -106,4 +107,13 @@ header ul a::before {
   width: 100%;
   height: 100%;
   background-color: palevioletred;
+}
+#tsparticles {
+  position: absolute;
+  height: 99%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
 }
