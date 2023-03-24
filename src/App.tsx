@@ -52,10 +52,10 @@ const App: FC = () => {
         <div className='container'>
           <Header currentTab={currentTab} />
           <Home ref={homeRef} id='home' isIntersecting={isIntersecting} />
-          <About ref={aboutRef} id='about' />
-          <Skills ref={skillsRef} id='skills' />
-          <Works ref={worksRef} id='works' />
-          <Contact ref={contactRef} id='contact' />
+          <About ref={aboutRef} id='about' isIntersecting={isIntersecting} />
+          <Skills ref={skillsRef} id='skills' isIntersecting={isIntersecting} />
+          <Works ref={worksRef} id='works' isIntersecting={isIntersecting} />
+          <Contact ref={contactRef} id='contact' isIntersecting={isIntersecting} />
         </div>
       </div>
     </>

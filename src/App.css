@@ -68,15 +68,23 @@ header ul .active:hover {
   height: 100%;
   background-color: blueviolet;
 }
-#about {
+.aboutContainer {
+  width: 100%;
+  height: 100%;
   background-color: cadetblue;
 }
-#skills {
+.skillsContainer {
+  width: 100%;
+  height: 100%;
   background-color: coral;
 }
-#works {
+.worksContainer {
+  width: 100%;
+  height: 100%;
   background-color: darkseagreen;
 }
-#contact {
+.contactContainer {
+  width: 100%;
+  height: 100%;
   background-color: palevioletred;
 }

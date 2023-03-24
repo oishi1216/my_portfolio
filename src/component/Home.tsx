@@ -1,13 +1,9 @@
 import React from 'react';
 import { forwardRef } from "react";
+import { ContainerProps } from '../types/Props';
 import { SlideScaleChange } from '../utils/SlideScaleChange';
 
-type Props = {
-    id: string;
-    isIntersecting: boolean;
-}
-
-export const Home = forwardRef<HTMLDivElement, Props>(({ id, isIntersecting } , ref) => {
+export const Home = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersecting } , ref) => {
     console.log(isIntersecting)
     return(
         <div id={id} ref={ref} className='wrapper'>
