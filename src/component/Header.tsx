@@ -19,7 +19,7 @@ export const Header: FC<Props> = memo(({ currentTab }) => {
             <nav>
                 <ul className="headerNavWrapper">
                     {navLists.map((item, index) => {
-                        return <li key={index}><a href={item.link} className={currentTab === item.class ? 'active': ''}>{item.text}</a></li>
+                        return <li key={index}><a href={item.link} className={currentTab === item.class ? 'active': ''}><span className='headerText'>{item.text}</span></a></li>
                     })}
                 </ul>
             </nav>
