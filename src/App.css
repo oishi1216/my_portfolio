@@ -117,3 +117,21 @@ header ul a::before {
   padding: 0;
   z-index: 0;
 }
+.siteNameWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.siteName {
+  text-align: center;
+  color: #fff;
+  font-family: 'Capriola';
+}
+.siteName > h1 {
+  font-size: 3rem;
+}
+.siteName > h2 {
+  font-size: 2rem;
+}
