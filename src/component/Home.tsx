@@ -5,7 +5,6 @@ import { SlideScaleChange } from '../utils/SlideScaleChange';
 import { Particle } from './Particle';
 
 export const Home = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersecting } , ref) => {
-    console.log(isIntersecting)
 
     return(
         <div id={id} ref={ref} className='wrapper'>

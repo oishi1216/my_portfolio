@@ -50,7 +50,7 @@ const App: FC = () => {
     <>
       <div ref={screenRef} className='screen'>
         <div className='container'>
-          <Header currentTab={currentTab} />
+          <Header currentTab={currentTab} isIntersecting={isIntersecting}/>
           <Home ref={homeRef} id='home' isIntersecting={isIntersecting} />
           <About ref={aboutRef} id='about' isIntersecting={isIntersecting} />
           <Skills ref={skillsRef} id='skills' isIntersecting={isIntersecting} />

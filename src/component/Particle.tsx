@@ -1,15 +1,11 @@
 import { FC, useCallback } from "react";
-import type { Container, Engine } from "tsparticles-engine";
+import type { Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
 export const Particle = () => {
     const particlesInit = useCallback(async (engine: Engine) => {
         await loadFull(engine);
-    }, []);
-
-    const particlesLoaded = useCallback(async (container: Container | undefined) => {
-        await console.log(container);
     }, []);
 
     return(
