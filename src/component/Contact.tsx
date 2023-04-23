@@ -2,12 +2,21 @@ import React from 'react';
 import { forwardRef } from "react";
 import { ContainerProps } from '../types/Props';
 import { SlideScaleChange } from '../utils/SlideScaleChange';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import { common } from '../styles/common';
+
+const contactContainer = css`
+    width: 100%;
+    height: 100%;
+    background-color: palevioletred;
+`
 
 export const Contact = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersecting } , ref) => {
     return(
-        <div id={id} ref={ref} className='wrapper'>
+        <div id={id} ref={ref} css={common.wrapper}>
             <SlideScaleChange isIntersecting={isIntersecting}>
-                <div className='contactContainer'>
+                <div css={contactContainer}>
 
                 </div>
             </SlideScaleChange>

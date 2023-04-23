@@ -8,6 +8,10 @@ import { Skills } from './component/Skills'
 import { Works } from './component/Works'
 import { Contact } from './component/Contact'
 import { useIntersectionObserver } from './hooks/useIntersectionObserver'
+/** @jsxImportSource @emotion/react */
+import { Global, css } from '@emotion/react'
+import { common } from './styles/common';
+import { style } from './styles/global'
 
 const App: FC = () => {
   const [ currentTab, setCurrentTab ] = useState<string>('home');
@@ -48,8 +52,9 @@ const App: FC = () => {
 
   return (
     <>
-      <div ref={screenRef} className='screen'>
-        <div className='container'>
+      <Global styles={style} />
+      <div ref={screenRef} css={common.screen}>
+        <div css={common.container}>
           <Header currentTab={currentTab} isIntersecting={isIntersecting}/>
           <Home ref={homeRef} id='home' isIntersecting={isIntersecting} />
           <About ref={aboutRef} id='about' isIntersecting={isIntersecting} />

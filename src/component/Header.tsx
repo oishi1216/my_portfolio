@@ -1,11 +1,59 @@
 import React, { memo } from 'react';
 import { FC } from "react";
 import { motion } from "framer-motion";
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 
 type Props = {
     currentTab: string,
     isIntersecting: boolean;
 }
+
+const header = css`
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    justify-content: center;
+    width: 100%;
+    height: 4rem;
+    background-color: #fff;
+`
+
+const nav = css`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+`
+
+const headerNavWrapper = css`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1080px;
+`
+
+const listStyle = css`
+    text-align: center;
+    line-height: 3;
+    height: 4rem;
+    width: calc(100% / 5);
+`
+
+const linkStyle = css`
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+`
+
+const headerText = css`
+    position: relative;
+    z-index: 2;
+`
 
 export const Header: FC<Props> = memo(({ currentTab, isIntersecting }) => {
     const tabChange = {
@@ -40,17 +88,17 @@ export const Header: FC<Props> = memo(({ currentTab, isIntersecting }) => {
         { text: 'Contact', link: '#contact', class: 'contact' },
     ]
     return(
-        <header className="header">
-            <nav>
-                <ul className="headerNavWrapper">
+        <header css={header}>
+            <nav css={nav}>
+                <ul css={headerNavWrapper}>
                     {navLists.map((item, index) => {
                         return (
-                            <li key={index}>
-                                <a href={item.link}>
+                            <li key={index} css={listStyle}>
+                                <a href={item.link} css={linkStyle}>
                                     <motion.span
-                                        className='headerText'
-                                        style={ currentTab === item.class ? { color: "#fff", zIndex: 2 } : { color: "#555", zIndex: 2 }}
-                                        animate={!isIntersecting ? currentTab === item.class ? "inactive" : "" : currentTab === item.class ? "active" : ""}
+                                        css={headerText}
+                                        style={ currentTab === item.class ? { color: "#fff" } : { color: "#555" }}
+                                        animate={!isIntersecting ? "inactive" : currentTab === item.class ? "active" : "inactive"}
                                         variants={colorChange}
                                         >{item.text}
                                     </motion.span>
