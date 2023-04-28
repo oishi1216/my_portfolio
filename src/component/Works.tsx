@@ -6,17 +6,11 @@ import { SlideScaleChange } from '../utils/SlideScaleChange';
 import { css } from '@emotion/react';
 import { common } from '../styles/common';
 
-const worksContainer = css`
-    width: 100%;
-    height: 100%;
-    background-color: darkseagreen;
-`
-
 export const Works = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersecting } , ref) => {
     return(
         <div id={id} ref={ref} css={common.wrapper}>
             <SlideScaleChange isIntersecting={isIntersecting}>
-                <div css={worksContainer}>
+                <div css={common.contentWrapper}>
 
                 </div>
             </SlideScaleChange>

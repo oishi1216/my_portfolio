@@ -20,5 +20,11 @@ export const common = {
         width: '100vw',
         height: 'calc(100% - 4rem)',
         marginTop: '4rem',
+    }),
+    contentWrapper: css({
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#F2F0E9',
     })
 }

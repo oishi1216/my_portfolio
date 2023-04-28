@@ -7,62 +7,45 @@ import { css } from '@emotion/react';
 import { common } from '../styles/common';
 import { Graph } from '../hooks/Chart';
 
-const skillsContainer = css`
-    width: 100%;
-    height: 100%;
-    background-color: coral;
-`
 const Scale = {
     y: {
-      min: 0,
-      max: 100,
-      title: {
-        display: true,
-        text: "weight",
-        color: "#FF4500",
-        rotate: "vertical",
-        font: {
-          size: 20,
-        },
-      },
-      ticks: {
-        stepSize: 10,
-      },
+        stacked: true,
     },
     x: {
-      title: {
-        display: true,
-        text: "month",
-        color: "rgb(255,69,0)",
-        font: {
-          size: 20,
-        },
-      },
+        stacked: true,
     },
   };
 
 const options = {
+    indexAxis: 'y' as const,
     responsive: true,
     plugins: {
-      legend: {
-        position: "top" as const,
-      },
+        legend: {
+          position: 'right' as const,
+        },
       title: {
         display: true,
-        text: "graph",
+        text: "frontend",
+        color: "#fff"
       },
     },
     scales: Scale,
   };
   
   const data = {
-    labels: ["January", "February", "March"],
+    labels: ["HTML5", "CSS3", "JavaScript"],
     datasets: [
       {
-        label: "Aさん",
-        data: [55, 50, 60],
+        label: "実務経験年数",
+        data: [1, 1, 1],
         borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "yellow",
+        backgroundColor: "red",
+      },
+      {
+        label: "個人開発年数",
+        data: [1, 1, 0.5],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "blue",
       },
     ],
   };
@@ -71,7 +54,7 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(({ id, isInters
     return(
         <div id={id} ref={ref} css={common.wrapper}>
             <SlideScaleChange isIntersecting={isIntersecting}>
-                <div css={skillsContainer}>
+                <div css={common.contentWrapper}>
                     <div className='contentWrapper'>
                         <Graph data={data} options={options} />
                     </div>

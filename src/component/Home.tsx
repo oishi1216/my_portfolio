@@ -8,13 +8,6 @@ import { motion, useAnimationControls } from "framer-motion";
 import { css } from '@emotion/react';
 import { common } from '../styles/common';
 
-const homeContainer = css`
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: blueviolet;
-`
-
 const siteNameWrapper = css`
     width: 100%;
     height: 100%;
@@ -55,7 +48,7 @@ export const Home = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersec
     return(
         <div id={id} ref={ref} css={common.wrapper}>
             <SlideScaleChange isIntersecting={isIntersecting}>
-                <div css={homeContainer}>
+                <div css={common.contentWrapper}>
                     <Particle />
                     <div css={siteNameWrapper}>
                         <div css={siteName}>
