@@ -7,6 +7,7 @@ export const common = {
         height: '100vh',
         overflow: 'auto',
         scrollBehavior: 'smooth',
+        backgroundColor: '#C3B68F',
     }),
     container: css({
         width: '500vw',

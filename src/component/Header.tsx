@@ -16,7 +16,7 @@ const header = css`
     justify-content: center;
     width: 100%;
     height: 4rem;
-    background-color: #fff;
+    background-color: #F2F0E9;
 `
 
 const nav = css`
@@ -103,7 +103,7 @@ export const Header: FC<Props> = memo(({ currentTab, isIntersecting }) => {
                                         >{item.text}
                                     </motion.span>
                                     <motion.span
-                                        style={ currentTab === item.class ? { display: "inline-block", backgroundColor: "royalblue", width: "100%", height: "100%", y: "-94%",} : { display: "inline-block", backgroundColor: "royalblue", width: "100%", height: "100%", y: "100%"}}
+                                        style={ currentTab === item.class ? { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "-94%",} : { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "100%"}}
                                         animate={!isIntersecting ? "inactive" : currentTab === item.class ? "active" : "inactive"}
                                         variants={tabChange}
                                     ></motion.span>

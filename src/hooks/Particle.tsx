@@ -14,13 +14,13 @@ export const Particle = () => {
                 fullScreen: { enable: false, zIndex: 0 },
                 particles: {
                     color: {
-                        value: "#fff"
+                        value: "#333"
                     },
                     number: {
                         value: 100
                     },
                     opacity: {
-                        value: {min: 0.3, max: 1}
+                        value: {min: 0.2, max: 0.5}
                     },
                     shape: {
                         type: "circle"

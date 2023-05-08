@@ -41,7 +41,7 @@ const App: FC = () => {
           delta += Math.ceil(screenRef.current!.scrollLeft)
           delta = Math.floor (delta / window.innerWidth) * window.innerWidth
       } else {
-          delta += screenRef.current!.scrollLeft
+          delta += Math.floor (screenRef.current!.scrollLeft)
           delta = Math.ceil (delta / window.innerWidth) * window.innerWidth
       }
       screenRef.current!.scrollLeft = delta

@@ -18,7 +18,7 @@ const siteNameWrapper = css`
 
 const siteName = css`
     text-align: center;
-    color: #fff;
+    color: #333;
     font-family: 'Capriola';
 `
 
@@ -27,14 +27,14 @@ export const Home = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersec
     const textAnimation = {
         init : {
             color: "transparent",
-            textShadow: "0 0 100px #fff, 0 0 100px #fff",
+            textShadow: "0 0 100px #333, 0 0 100px #333",
             opacity: 0,
         },
     }
 
     useEffect(() => {
         controls.start(i => ({
-            textShadow: ["0 0 90px #fff, 0 0 90px #fff", "0 0 3px #fff, 0 0 3px #fff", "0 0 0 #fff"],
+            textShadow: ["0 0 90px #333, 0 0 90px #333", "0 0 3px #333, 0 0 3px #333", "0 0 0 #333"],
             opacity: [0, 1, 1],
             transition: {
                 ease: "linear",
