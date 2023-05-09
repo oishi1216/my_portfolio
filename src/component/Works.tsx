@@ -11,7 +11,9 @@ export const Works = forwardRef<HTMLDivElement, ContainerProps>(({ id, isInterse
         <div id={id} ref={ref} css={common.wrapper}>
             <SlideScaleChange isIntersecting={isIntersecting}>
                 <div css={common.contentWrapper}>
-
+                    <div>
+                        <img src="../../assets/portfolio.png" alt="" />
+                    </div>
                 </div>
             </SlideScaleChange>
         </div>
