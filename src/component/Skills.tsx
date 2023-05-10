@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { forwardRef } from "react";
 import { ContainerProps } from '../types/Props';
 import { SlideScaleChange } from '../utils/SlideScaleChange';
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { common } from '../styles/common';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDesktop, faServer, faToolbox } from '@fortawesome/free-solid-svg-icons';
-import { useAnimation } from 'framer-motion';
 
 const skillsContainer = css`
   display: flex;
