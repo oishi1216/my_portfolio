@@ -15,7 +15,7 @@ const worksWrapper = css`
     flex-wrap: wrap;
     margin: 0 auto;
     max-width: 1080px;
-    padding: 1.25em .625em .625em;
+    padding: 1.25em;
 `
 
 const workWrapper = css`
@@ -25,16 +25,15 @@ const workWrapper = css`
 const workImg = css`
     cursor: pointer;
     width: 18.75em;
-    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 .3em .9em 0 rgba(0, 0, 0, 0.25);
 `
 
 const workTitle = css`
-    margin-top: 14px;
+    margin-top: .8em;
 `
 
 export const Works = forwardRef<HTMLDivElement, WorksProps>(({ id, isIntersecting, openModal, setOpenModal } , ref) => {
     const onClickChangeModal = () => {
-        console.log("a");
         setOpenModal(true)
     }
 
