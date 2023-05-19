@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { forwardRef } from "react";
-import { ContainerProps } from '../types/Props';
+import { WorksProps } from '../types/Props';
 import { SlideScaleChange } from '../utils/SlideScaleChange';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
@@ -32,13 +32,10 @@ const workTitle = css`
     margin-top: 14px;
 `
 
-export const Works = forwardRef<HTMLDivElement, ContainerProps>(({ id, isIntersecting } , ref) => {
-    const [ openModal, setOpenModal ] = useState([false, false, false, false])
-    const [isVisible, setIsVisible] = useState(false);
-
+export const Works = forwardRef<HTMLDivElement, WorksProps>(({ id, isIntersecting, openModal, setOpenModal } , ref) => {
     const onClickChangeModal = () => {
         console.log("a");
-        setIsVisible(true)
+        setOpenModal(true)
     }
 
     return(
@@ -51,7 +48,7 @@ export const Works = forwardRef<HTMLDivElement, ContainerProps>(({ id, isInterse
                             <div css={workTitle}>Portfolio Sites</div>
                         </div>
                     </div>
-                    <Modal isVisible={isVisible} onClose={() => setIsVisible(false)}>
+                    <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
                         <div>Modal</div>
                     </Modal>
                 </div>

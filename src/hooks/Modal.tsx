@@ -22,15 +22,15 @@ const modalWrapper = css`
     height: 200px;
     border-radius: 8px;
     padding: 10px;
-    background: #fff;
+    background: #F2F0E9;
     z-index: 11;
     transform: translateX(-50%);
 `
 
-export const Modal: FC<ModalProps> = ({ isVisible, onClose, children }) => {
+export const Modal: FC<ModalProps> = ({ openModal, onClose, children }) => {
     return (
         <AnimatePresence>
-            {isVisible && (
+            {openModal && (
                 <motion.div
                     key="modal"
                     initial={{ opacity: 0, zIndex: 2, position: "relative"}}

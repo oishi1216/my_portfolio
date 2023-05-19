@@ -34,13 +34,15 @@ const headerNavWrapper = css`
 
 const listStyle = css`
     text-align: center;
-    line-height: 3;
+    align-items: center;
+    line-height: 4;
     height: 4rem;
     width: calc(100% / 5);
 `
 
 const linkStyle = css`
     display: block;
+    vertical-align: middle;
     position: relative;
     width: 100%;
     height: 100%;
@@ -64,7 +66,7 @@ export const Header: FC<Props> = memo(({ currentTab, isIntersecting }) => {
             },
         },
         active: {
-            y: '-94%',
+            y: '-100%',
             transition: {
                 duration: .2,
             },
@@ -103,7 +105,7 @@ export const Header: FC<Props> = memo(({ currentTab, isIntersecting }) => {
                                         >{item.text}
                                     </motion.span>
                                     <motion.span
-                                        style={ currentTab === item.class ? { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "-94%",} : { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "100%"}}
+                                        style={ currentTab === item.class ? { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "-100%",} : { display: "inline-block", backgroundColor: "#333", width: "100%", height: "100%", y: "100%"}}
                                         animate={!isIntersecting ? "inactive" : currentTab === item.class ? "active" : "inactive"}
                                         variants={tabChange}
                                     ></motion.span>

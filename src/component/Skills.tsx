@@ -27,8 +27,8 @@ const tableWrapper = css`
 `
 
 const tableHeadline = css`
-  font-size: 1.625em;
-  padding: 1em;
+  font-size: 1.4em;
+  padding: .5em;
 `
 
 const icon = css`
@@ -37,12 +37,12 @@ const icon = css`
 
 const table = css`
   margin: 0 auto;
-  font-size: 1.125em;
+  font-size: 1em;
   padding: 0 .625em 1em;
 `
 
 const column = css`
-  padding: .375rem .75em;
+  padding: .375rem .575em;
 `
 
 const wrapTable = css`
@@ -53,10 +53,10 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(({ id, isInters
   const control = useAnimation();
   const fontSizeChange = {
     reduction: {
-      fontSize: '12.8px',
+      fontSize: '1.4vh',
     },
     enlargement: {
-        fontSize: '16px',
+        fontSize: '2vh',
     }
   }
 

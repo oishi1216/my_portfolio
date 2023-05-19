@@ -15,7 +15,8 @@ import { style } from './styles/global'
 
 const App: FC = () => {
   const [ currentTab, setCurrentTab ] = useState<string>('home');
-  const [ isIntersecting, setIsIntersecting ] = useState<boolean>(true)
+  const [ isIntersecting, setIsIntersecting ] = useState<boolean>(true);
+  const [ openModal, setOpenModal ] = useState<boolean>(false);
 
   const screenRef = useRef<HTMLDivElement>(null)
   const homeRef = useRef<HTMLDivElement>(null)
@@ -35,18 +36,23 @@ const App: FC = () => {
 
   useEffect(() => {
     screenRef.current!.onwheel = event => {
-      event.preventDefault()
-      let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth
-      if (delta > 0) {
-          delta += Math.ceil(screenRef.current!.scrollLeft)
-          delta = Math.floor (delta / window.innerWidth) * window.innerWidth
+
+      if(openModal) {
+        event.preventDefault();
       } else {
-          delta += Math.floor (screenRef.current!.scrollLeft)
-          delta = Math.ceil (delta / window.innerWidth) * window.innerWidth
+        event.preventDefault();
+        let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth
+        if (delta > 0) {
+            delta += Math.ceil(screenRef.current!.scrollLeft)
+            delta = Math.floor (delta / window.innerWidth) * window.innerWidth
+        } else {
+            delta += Math.floor (screenRef.current!.scrollLeft)
+            delta = Math.ceil (delta / window.innerWidth) * window.innerWidth
+        }
+        screenRef.current!.scrollLeft = delta
       }
-      screenRef.current!.scrollLeft = delta
     }
-  }, [])
+  }, [openModal])
 
     useIntersectionObserver([contactRef, worksRef, skillsRef, aboutRef, homeRef], activeCurrentTab, { root: null, rootMargin: "0px", threshold: 0.99 });
 
@@ -59,7 +65,7 @@ const App: FC = () => {
           <Home ref={homeRef} id='home' isIntersecting={isIntersecting} />
           <About ref={aboutRef} id='about' isIntersecting={isIntersecting} />
           <Skills ref={skillsRef} id='skills' isIntersecting={isIntersecting} />
-          <Works ref={worksRef} id='works' isIntersecting={isIntersecting} />
+          <Works ref={worksRef} id='works' isIntersecting={isIntersecting} openModal={openModal} setOpenModal={setOpenModal}/>
           <Contact ref={contactRef} id='contact' isIntersecting={isIntersecting} />
         </div>
       </div>
