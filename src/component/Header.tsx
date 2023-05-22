@@ -12,7 +12,7 @@ type Props = {
 const header = css`
     display: flex;
     position: fixed;
-    z-index: 1;
+    z-index: 0;
     justify-content: center;
     width: 100%;
     height: 4rem;

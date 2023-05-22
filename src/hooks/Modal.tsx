@@ -15,9 +15,10 @@ const overlay = css`
 `;
 
 const modalWrapper = css`
-  position: relative;
+  position: absolute;
+  top: 25%;
   padding: 1em;
-  margin: 3em;
+  margin: 0 3em;
   background: #f2f0e9;
   z-index: 11;
 `;
@@ -28,8 +29,8 @@ export const Modal: FC<ModalProps> = ({ openModal, onClose, children }) => {
       {openModal && (
         <motion.div
           key="modal"
-          initial={{ opacity: 0, zIndex: 2, position: "relative" }}
-          animate={{ opacity: 1, zIndex: 2, position: "relative" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div css={overlay} onClick={onClose} />

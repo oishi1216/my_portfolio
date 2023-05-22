@@ -25,7 +25,7 @@ const workWrapper = css`
 const workImg = css`
   cursor: pointer;
   width: 18.75em;
-  box-shadow: 0 0.3em 0.9em 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 .3em .9em 0 rgba(0, 0, 0, 0.25);
 `;
 
 const workTitle = css`
@@ -33,13 +33,11 @@ const workTitle = css`
 `;
 
 const modalTitleWrapper = css`
-  position: relative;
   text-align: center;
 `;
 
 const modalTitle = css`
-  color: #333;
-  font-size: 1.5em;
+  position: relative;
   &:before {
     content: "";
     display: block;
@@ -50,6 +48,15 @@ const modalTitle = css`
     z-index: 1;
   }
 `;
+
+const modalTitleText = css`
+    position: relative;
+    color: #333;
+    font-size: 1.5em;
+    background-color: #F2F0E9;
+    padding: 0 .5em;
+    z-index: 2;
+`
 
 const modalTextArea = css`
   width: 35%;
@@ -91,15 +98,15 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
                 <div css={modalTextArea}>
                   <div>
                     <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}>Portfolio Sites</h4>
+                      <h4 css={modalTitle}><span css={modalTitleText}>Portfolio Sites</span></h4>
                     </div>
-                    <p>ああああああああああああああああああああ</p>
+                    <p>このページです。ReactとTypeScriptで作成しております。HOMEの雪のアニメーションはparticles.jsを使用し、それ以外のアニメーションはframer-motionで実装しています。</p>
                   </div>
                   <div>
                     <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}>使用言語など</h4>
+                      <h4 css={modalTitle}><span css={modalTitleText}>使用言語など</span></h4>
                     </div>
-                    <p>ああああああああああああああああああああ</p>
+                    <p>HTML/CSS, React, TypeScript, emotion, framer-motion, particles.js</p>
                   </div>
                 </div>
                 <div css={modalImageArea}></div>

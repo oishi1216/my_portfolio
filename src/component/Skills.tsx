@@ -16,14 +16,13 @@ import {
 const skillsContainer = css`
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;
   margin: 0 auto;
   max-width: 1080px;
-  padding: 1.25em 0.625em 0.625em;
+  padding: 1.25em .5em .5em;
 `;
 
 const tableWrapper = css`
-  flex-basis: 20em;
+  flex-basis: 23em;
   min-width: 20.75em;
   border: 0.1875em solid #333;
   color: #333;
@@ -49,29 +48,8 @@ const column = css`
   padding: 0.375rem 0.575em;
 `;
 
-const wrapTable = css`
-  margin-top: 1.5em;
-`;
-
 export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
   ({ id, isIntersecting }, ref) => {
-    const control = useAnimation();
-    const fontSizeChange = {
-      reduction: {
-        fontSize: "1.4vh",
-      },
-      enlargement: {
-        fontSize: "2vh",
-      },
-    };
-
-    useEffect(() => {
-      if (!isIntersecting) {
-        control.start("reduction");
-      } else {
-        control.start("enlargement");
-      }
-    }, [isIntersecting]);
 
     return (
       <div id={id} ref={ref} css={common.wrapper}>
@@ -79,11 +57,7 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
           isIntersecting={isIntersecting}
         >
           <div css={common.contentWrapper}>
-            <motion.div
-              animate={control}
-              variants={fontSizeChange}
-              css={skillsContainer}
-            >
+            <div css={skillsContainer}>
               <div css={tableWrapper}>
                 <h3 css={tableHeadline}>
                   <FontAwesomeIcon icon={faDesktop} css={icon} />
@@ -163,7 +137,9 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
                   </tbody>
                 </table>
               </div>
-              <div css={[tableWrapper, wrapTable]}>
+            </div>
+            <div css={skillsContainer}>
+              <div css={tableWrapper}>
                 <h3 css={tableHeadline}>
                   <FontAwesomeIcon icon={faToolbox} css={icon} />
                   その他
@@ -205,7 +181,7 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
                   </tbody>
                 </table>
               </div>
-            </motion.div>
+            </div>
           </div>
         </SlideScaleChange>
       </div>

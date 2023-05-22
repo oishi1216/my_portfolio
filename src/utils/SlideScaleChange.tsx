@@ -11,11 +11,13 @@ export const SlideScaleChange: FC<Props> = ({ children, isIntersecting }) => {
     const scaleChange = {
         reduction: {
             height: '80%',
-            width: '80%'
+            width: '80%',
+            fontSize: "1.4vh",
         },
         enlargement: {
             height: '100%',
-            width: '100%'
+            width: '100%',
+            fontSize: "2vh",
         }
     }
 
