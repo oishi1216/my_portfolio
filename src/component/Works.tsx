@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { forwardRef } from "react";
 import { WorksProps } from "../types/Props";
-import { SlideScaleChange } from "../utils/SlideScaleChange";
+import { SlideScaleChange } from "../hooks/useSlideScaleChange";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { common } from "../styles/common";
-import portfolio from "../assets/portfolio.png";
+import portfolio from "../assets/portfolio_thumbnail.png";
+import portfolio_home from "../assets/portfolio_home_slide.png";
 import { motion } from "framer-motion";
-import { Modal } from "../hooks/Modal";
+import { Modal } from "../hooks/useModal";
+import { Carousel } from "../hooks/useCarousel";
 
 const worksWrapper = css`
   display: flex;
@@ -58,12 +60,18 @@ const modalTitleText = css`
     z-index: 2;
 `
 
+const modalContainer = css`
+  display: flex;
+  justify-content: space-between;
+`
+
 const modalTextArea = css`
   width: 35%;
 `;
 
 const modalImageArea = css`
-  width: 65%;
+  width: 60%;
+  text-align: center;
 `;
 
 export const Works = forwardRef<HTMLDivElement, WorksProps>(
@@ -94,7 +102,7 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
               </div>
             </div>
             <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
-              <div>
+              <div css={modalContainer}>
                 <div css={modalTextArea}>
                   <div>
                     <div css={modalTitleWrapper}>
@@ -109,7 +117,9 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
                     <p>HTML/CSS, React, TypeScript, emotion, framer-motion, particles.js</p>
                   </div>
                 </div>
-                <div css={modalImageArea}></div>
+                <div css={modalImageArea}>
+                  <Carousel />
+                </div>
               </div>
             </Modal>
           </div>

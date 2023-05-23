@@ -7,3 +7,12 @@
   padding: 0;
   z-index: 0;
 }
+
+.slick-slider{
+  max-width: 80vw;
+  width: 100%;
+}
+
+.slick-dots {
+  width: 100%;
+}

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { forwardRef } from "react";
 import { ContainerProps } from "../types/Props";
-import { SlideScaleChange } from "../utils/SlideScaleChange";
-import { Particle } from "../hooks/Particle";
+import { SlideScaleChange } from "../hooks/useSlideScaleChange";
+import { Particle } from "../hooks/useParticle";
 import { motion, useAnimationControls } from "framer-motion";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";

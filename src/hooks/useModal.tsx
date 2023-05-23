@@ -16,9 +16,9 @@ const overlay = css`
 
 const modalWrapper = css`
   position: absolute;
-  top: 25%;
-  padding: 1em;
-  margin: 0 3em;
+  top: 5%;
+  padding: 2em 1.5em;
+  margin: 0 2em;
   background: #f2f0e9;
   z-index: 11;
 `;
