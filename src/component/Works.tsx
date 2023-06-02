@@ -10,6 +10,8 @@ import portfolio_home from "../assets/portfolio_home_slide.png";
 import { motion } from "framer-motion";
 import { Modal } from "../hooks/useModal";
 import { Carousel } from "../hooks/useCarousel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const worksWrapper = css`
   display: flex;
@@ -52,12 +54,12 @@ const modalTitle = css`
 `;
 
 const modalTitleText = css`
-    position: relative;
-    color: #333;
-    font-size: 1.5em;
-    background-color: #F2F0E9;
-    padding: 0 .5em;
-    z-index: 2;
+  position: relative;
+  color: #333;
+  font-size: 1.5em;
+  background-color: #F2F0E9;
+  padding: 0 .5em;
+  z-index: 2;
 `
 
 const modalContainer = css`
@@ -65,12 +67,20 @@ const modalContainer = css`
   justify-content: space-between;
 `
 
+const modalCloseBtn = css`
+  position: absolute;
+  top: 0;
+  right: .5em;
+  font-size: 1.5em;
+  cursor: pointer;
+`
+
 const modalTextArea = css`
   width: 35%;
 `;
 
 const modalImageArea = css`
-  width: 60%;
+  width: 55%;
   text-align: center;
 `;
 
@@ -80,7 +90,7 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
     ref
   ) => {
     const onClickChangeModal = () => {
-      setOpenModal(true);
+      setOpenModal(!openModal);
     };
 
     return (
@@ -102,6 +112,9 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
               </div>
             </div>
             <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
+              <div css={modalCloseBtn} onClick={onClickChangeModal}>
+                  <FontAwesomeIcon icon={faXmark}/>
+              </div>
               <div css={modalContainer}>
                 <div css={modalTextArea}>
                   <div>
