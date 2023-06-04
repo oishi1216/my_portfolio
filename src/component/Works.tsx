@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { Modal } from "../hooks/useModal";
 import { Carousel } from "../hooks/useCarousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const worksWrapper = css`
   display: flex;
@@ -29,7 +29,7 @@ const workWrapper = css`
 const workImg = css`
   cursor: pointer;
   width: 18.75em;
-  box-shadow: 0 .3em .9em 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0.3em 0.9em 0 rgba(0, 0, 0, 0.25);
 `;
 
 const workTitle = css`
@@ -57,23 +57,24 @@ const modalTitleText = css`
   position: relative;
   color: #333;
   font-size: 1.5em;
-  background-color: #F2F0E9;
-  padding: 0 .5em;
+  background-color: #f2f0e9;
+  padding: 0 0.5em;
   z-index: 2;
-`
+`;
 
 const modalContainer = css`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const modalCloseBtn = css`
   position: absolute;
   top: 0;
-  right: .5em;
+  right: 0.5em;
   font-size: 1.5em;
   cursor: pointer;
-`
+  color: #333;
+`;
 
 const modalTextArea = css`
   width: 35%;
@@ -85,19 +86,14 @@ const modalImageArea = css`
 `;
 
 export const Works = forwardRef<HTMLDivElement, WorksProps>(
-  (
-    { id, isIntersecting, openModal, setOpenModal },
-    ref
-  ) => {
+  ({ id, isIntersecting, openModal, setOpenModal }, ref) => {
     const onClickChangeModal = () => {
       setOpenModal(!openModal);
     };
 
     return (
       <div id={id} ref={ref} css={common.wrapper}>
-        <SlideScaleChange
-          isIntersecting={isIntersecting}
-        >
+        <SlideScaleChange isIntersecting={isIntersecting}>
           <div css={common.contentWrapper}>
             <div css={worksWrapper}>
               <div css={workWrapper}>
@@ -113,21 +109,30 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
             </div>
             <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
               <div css={modalCloseBtn} onClick={onClickChangeModal}>
-                  <FontAwesomeIcon icon={faXmark}/>
+                <FontAwesomeIcon icon={faCircleXmark} />
               </div>
               <div css={modalContainer}>
                 <div css={modalTextArea}>
                   <div>
                     <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}><span css={modalTitleText}>Portfolio Sites</span></h4>
+                      <h4 css={modalTitle}>
+                        <span css={modalTitleText}>Portfolio Sites</span>
+                      </h4>
                     </div>
-                    <p>このページです。ReactとTypeScriptで作成しております。HOMEの雪のアニメーションはparticles.jsを使用し、それ以外のアニメーションはframer-motionで実装しています。</p>
+                    <p>
+                      このページです。ReactとTypeScriptで作成しております。HOMEの雪のアニメーションはparticles.jsを使用し、それ以外のアニメーションはframer-motionで実装しています。
+                    </p>
                   </div>
                   <div>
                     <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}><span css={modalTitleText}>使用言語など</span></h4>
+                      <h4 css={modalTitle}>
+                        <span css={modalTitleText}>使用言語など</span>
+                      </h4>
                     </div>
-                    <p>HTML/CSS, React, TypeScript, emotion, framer-motion, particles.js</p>
+                    <p>
+                      HTML/CSS, React, TypeScript, emotion, framer-motion,
+                      particles.js
+                    </p>
                   </div>
                 </div>
                 <div css={modalImageArea}>
