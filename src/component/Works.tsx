@@ -5,13 +5,12 @@ import { SlideScaleChange } from "../hooks/useSlideScaleChange";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { common } from "../styles/common";
-import portfolio from "../assets/portfolio_thumbnail.png";
-import portfolio_home from "../assets/portfolio_home_slide.png";
 import { motion } from "framer-motion";
 import { Modal } from "../hooks/useModal";
 import { Carousel } from "../hooks/useCarousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { worksData, modalsData } from "../data/PortfolioData"
 
 const worksWrapper = css`
   display: flex;
@@ -86,9 +85,13 @@ const modalImageArea = css`
 `;
 
 export const Works = forwardRef<HTMLDivElement, WorksProps>(
-  ({ id, isIntersecting, openModal, setOpenModal }, ref) => {
-    const onClickChangeModal = () => {
-      setOpenModal(!openModal);
+  ({ id, isIntersecting, openModals, setopenModals }, ref) => {
+    const onClickChangeModal = (index: number) => {
+      const modalInfoArr = openModals.map((modal, idx) => {
+        return idx === index ? !modal : modal;
+      })
+
+      setopenModals(modalInfoArr)
     };
 
     return (
@@ -96,50 +99,53 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
         <SlideScaleChange isIntersecting={isIntersecting}>
           <div css={common.contentWrapper}>
             <div css={worksWrapper}>
-              <div css={workWrapper}>
-                <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  css={workImg}
-                  src={portfolio}
-                  alt="ポートフォリオサイト"
-                  onClick={onClickChangeModal}
-                />
-                <div css={workTitle}>Portfolio Sites</div>
-              </div>
+              {worksData.map((data, index) => {
+                return(
+                  <div key={data.id} css={workWrapper}>
+                    <motion.img
+                      whileHover={{ scale: 1.1 }}
+                      css={workImg}
+                      src={data.img}
+                      alt={data.alt}
+                      onClick={() => onClickChangeModal(index)}
+                    />
+                    <div css={workTitle}>{data.title}</div>
+                  </div>
+                )
+              })}
             </div>
-            <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
-              <div css={modalCloseBtn} onClick={onClickChangeModal}>
-                <FontAwesomeIcon icon={faCircleXmark} />
-              </div>
-              <div css={modalContainer}>
-                <div css={modalTextArea}>
-                  <div>
-                    <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}>
-                        <span css={modalTitleText}>Portfolio Sites</span>
-                      </h4>
-                    </div>
-                    <p>
-                      このページです。ReactとTypeScriptで作成しております。HOMEの雪のアニメーションはparticles.jsを使用し、それ以外のアニメーションはframer-motionで実装しています。
-                    </p>
+            {modalsData.map((modal, index) => {
+              return (
+                <Modal key={modal.id} index={index} openModals={openModals} onClose={() => onClickChangeModal(index)}>
+                  <div css={modalCloseBtn} onClick={() => onClickChangeModal(index)}>
+                    <FontAwesomeIcon icon={faCircleXmark} />
                   </div>
-                  <div>
-                    <div css={modalTitleWrapper}>
-                      <h4 css={modalTitle}>
-                        <span css={modalTitleText}>使用言語など</span>
-                      </h4>
+                  <div css={modalContainer}>
+                    <div css={modalTextArea}>
+                      <div>
+                        <div css={modalTitleWrapper}>
+                          <h4 css={modalTitle}>
+                            <span css={modalTitleText}>{modal.siteTitle}</span>
+                          </h4>
+                        </div>
+                        <p>{modal.siteDescription}</p>
+                      </div>
+                      <div>
+                        <div css={modalTitleWrapper}>
+                          <h4 css={modalTitle}>
+                            <span css={modalTitleText}>使用言語など</span>
+                          </h4>
+                        </div>
+                        <p>{modal.languageDescription}</p>
+                      </div>
                     </div>
-                    <p>
-                      HTML/CSS, React, TypeScript, emotion, framer-motion,
-                      particles.js
-                    </p>
+                    <div css={modalImageArea}>
+                      <Carousel carouselItems={modal.Images}/>
+                    </div>
                   </div>
-                </div>
-                <div css={modalImageArea}>
-                  <Carousel />
-                </div>
-              </div>
-            </Modal>
+                </Modal>
+              )
+            })}
           </div>
         </SlideScaleChange>
       </div>

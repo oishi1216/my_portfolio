@@ -16,7 +16,7 @@ import { style } from "./styles/global";
 const App: FC = () => {
   const [currentTab, setCurrentTab] = useState<string>("home");
   const [isIntersecting, setIsIntersecting] = useState<boolean>(true);
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openModals, setopenModals] = useState<Array<boolean>>([false]);
 
   const screenRef = useRef<HTMLDivElement>(null);
   const homeRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ const App: FC = () => {
 
   useEffect(() => {
     screenRef.current!.onwheel = (event) => {
-      if (openModal) {
+      if (openModals) {
         event.preventDefault();
       } else {
         event.preventDefault();
@@ -51,7 +51,7 @@ const App: FC = () => {
         screenRef.current!.scrollLeft = delta;
       }
     };
-  }, [openModal]);
+  }, [openModals]);
 
   useIntersectionObserver(
     [contactRef, worksRef, skillsRef, aboutRef, homeRef],
@@ -87,8 +87,8 @@ const App: FC = () => {
             ref={worksRef}
             id="works"
             isIntersecting={isIntersecting}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
+            openModals={openModals}
+            setopenModals={setopenModals}
           />
           <Contact
             ref={contactRef}

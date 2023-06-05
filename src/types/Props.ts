@@ -8,12 +8,21 @@ export type ContainerProps = {
 export type WorksProps = {
     id: string;
     isIntersecting: boolean;
-    openModal: boolean;
-    setOpenModal: Dispatch<SetStateAction<boolean>>;
+    openModals: Array<boolean>;
+    setopenModals: Dispatch<SetStateAction<Array<boolean>>>;
 }
 
 export type ModalProps = {
-    openModal: boolean;
+    index: number;
+    openModals: Array<boolean>;
     onClose: () => void;
     children: ReactNode;
 };
+
+export type CarouselProps = {
+    modalImages: {
+        id: string;
+        image: string;
+        alt: string;
+    }[]
+}

@@ -23,10 +23,10 @@ const modalWrapper = css`
   z-index: 11;
 `;
 
-export const Modal: FC<ModalProps> = ({ openModal, onClose, children }) => {
+export const Modal: FC<ModalProps> = ({ index, openModals, onClose, children }) => {
   return (
     <AnimatePresence>
-      {openModal && (
+      {openModals[index] && (
         <motion.div
           key="modal"
           initial={{ opacity: 0 }}

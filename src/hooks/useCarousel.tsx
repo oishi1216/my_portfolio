@@ -4,17 +4,14 @@ import portfolio_home from "../assets/portfolio_home_slide.png";
 import portfolio_skills from "../assets/portfolio_skills_slide.png";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-
-const carouselItems = [
-    { image: portfolio_home, alt: "" },
-    { image: portfolio_skills, alt: "" },
-]
+import { FC } from "react";
+import { CarouselProps } from "../types/Props"
 
 const imageWidth = css`
   width: 100%;
 `
 
-export const Carousel = () => {
+export const Carousel:FC<CarouselProps> = (carouselItems) => {
 
     const sliderSettings = {
         dots: true,
@@ -29,8 +26,8 @@ export const Carousel = () => {
 
     return (
         <Slider {...sliderSettings}>
-          {carouselItems.map((carouselItem, index) => (
-            <div key={index}>
+          {carouselItems.carouselItems.map((carouselItem) => (
+            <div key={carouselItem.id}>
               <img
                 css={imageWidth}
                 src={carouselItem.image}
