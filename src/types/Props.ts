@@ -20,7 +20,7 @@ export type ModalProps = {
 };
 
 export type CarouselProps = {
-    modalImages: {
+    carouselItems: {
         id: string;
         image: string;
         alt: string;
