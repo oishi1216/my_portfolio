@@ -31,9 +31,9 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
               <label>お名前 *</label>
               <input type="text" name="user_name" placeholder="あなたのお名前を入力してください。"/>
               <label>メールアドレス *</label>
-              <input type="email" name="user_email" />
+              <input type="email" name="user_email" placeholder="あなたのメールアドレスを入力してください。"/>
               <label>メッセージ *</label>
-              <textarea name="message" />
+              <textarea name="message" placeholder="お問合せの内容を入力してください。"/>
               <input type="submit" value="Send" />
             </form>
           </div>
