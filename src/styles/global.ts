@@ -7,7 +7,7 @@ export const style = css`
     }
     body {
         font-family: fot-tsukuardgothic-std, sans-serif;
-        color: #000;
+        color: #333;
     }
     ul {
         list-style: none;
