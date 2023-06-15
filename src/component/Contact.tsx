@@ -66,9 +66,10 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
 
     const sendEmail = (e: React.FormEvent) => {
       e.preventDefault();
-      emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, form.current!, import.meta.env.VITE_EMAILJS_PUBLIC_KEY )
+      emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, form.current!, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
       .then((result) => {
         console.log(result.text);
+        form.current?.reset();
       },(error) => {
         console.log(error.text);
       });
@@ -77,13 +78,16 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
     const onChangeNameFlag = (e:React.ChangeEvent<HTMLInputElement>) => {
       const newNameFlag = checkText(nameFlag, e.target.value, 'name');
       setNameFlag(newNameFlag);
-      console.log(newNameFlag)
     }
 
     const onChangeEmailFlag = (e:React.ChangeEvent<HTMLInputElement>) => {
       const newEmailFlag = checkText(emailFlag, e.target.value, 'email');
       setEmailFlag(newEmailFlag);
-      console.log(newEmailFlag)
+    }
+
+    const onChangeMessageFlag = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const newMessage = e.target.value !== '' ? true : false;
+      setMessageFlag(newMessage);
     }
 
     useEffect(() => {
@@ -103,7 +107,7 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
                 <label css={cloumnSize}>メールアドレス <span css={requiredIcons}>*</span></label>
                 <input type="email" name="user_email" placeholder="メールアドレスを入力してください。" css={inputTextStyle} onChange={onChangeEmailFlag}/>
                 <label css={cloumnSize}>メッセージ <span css={requiredIcons}>*</span></label>
-                <textarea name="message" placeholder="お問合せの内容を入力してください。" css={[inputTextStyle, textareaStyle]}/>
+                <textarea name="message" placeholder="お問合せの内容を入力してください。" css={[inputTextStyle, textareaStyle]} onChange={onChangeMessageFlag}/>
                 <motion.button disabled={submitFlag} type="submit" css={[inputButtonStyle, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.2 }} whileHover={ submitFlag ? {} : { y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
               </form>
             </div>
