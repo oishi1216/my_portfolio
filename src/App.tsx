@@ -36,14 +36,13 @@ const App: FC = () => {
 
   useEffect(() => {
     screenRef.current!.onwheel = (event) => {
-      if (openModals) {
-        console.log(openModals)
+      const openModal = openModals.filter(item => item === true);
+
+      if (openModal.length) {
         event.preventDefault();
       } else {
-        console.log("b")
         event.preventDefault();
         let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth;
-        console.log(delta)
         if (delta > 0) {
           delta += Math.ceil(screenRef.current!.scrollLeft);
           delta = Math.floor(delta / window.innerWidth) * window.innerWidth;

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { forwardRef } from "react";
 import { ContainerProps } from "../types/Props";
 import { SlideScaleChange } from "../hooks/useSlideScaleChange";
@@ -7,10 +7,12 @@ import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 import { common } from "../styles/common";
 import emailjs from '@emailjs/browser';
+import { useCheckText } from "../hooks/useCheckText";
 
 const formWrapper = css`
-  padding: 2em 0.5em 1em;
+  padding: 2em 0 1em;
   margin: 0 auto;
+  width: 70%;
   max-width: 1080px;
 `
 
@@ -41,6 +43,11 @@ const inputButtonStyle = css`
   padding: 1em;
   border-radius: 0.125em;
   border: .0625em solid #333;
+
+  &:disabled {
+    color: rgba(51, 51, 51, .3);
+    background-color: rgba(254, 196, 99, .3);
+  }
 `
 
 const cloumnSize = css`
@@ -50,6 +57,12 @@ const cloumnSize = css`
 export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
   ({ id, isIntersecting }, ref) => {
     const form = useRef<HTMLFormElement>(null);
+    const [nameFlag, setNameFlag] = useState<Array<boolean>>([false, false]);
+    const [emailFlag, setEmailFlag] = useState<Array<boolean>>([false, false]);
+    const [messageFlag, setMessageFlag] = useState<boolean>(false);
+    const [submitFlag, setSubmitFlag] = useState<boolean>(true);
+
+    const { checkText } = useCheckText();
 
     const sendEmail = (e: React.FormEvent) => {
       e.preventDefault();
@@ -61,6 +74,22 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
       });
     }
 
+    const onChangeNameFlag = (e:React.ChangeEvent<HTMLInputElement>) => {
+      const newNameFlag = checkText(nameFlag, e.target.value, 'name');
+      setNameFlag(newNameFlag);
+      console.log(newNameFlag)
+    }
+
+    const onChangeEmailFlag = (e:React.ChangeEvent<HTMLInputElement>) => {
+      const newEmailFlag = checkText(emailFlag, e.target.value, 'email');
+      setEmailFlag(newEmailFlag);
+      console.log(newEmailFlag)
+    }
+
+    useEffect(() => {
+      nameFlag[1] && emailFlag[1] && messageFlag ? setSubmitFlag(false) : setSubmitFlag(true);
+    }, [nameFlag, emailFlag, messageFlag]);
+
     return (
       <div id={id} ref={ref} css={common.wrapper}>
         <SlideScaleChange
@@ -70,12 +99,12 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
             <div css={formWrapper}>
               <form ref={form} onSubmit={sendEmail} css={formStyle}>
                 <label>お名前 <span css={requiredIcons}>*</span></label>
-                <input type="text" name="user_name" placeholder="あなたのお名前を入力してください。" css={inputTextStyle}/>
+                <input type="text" name="user_name" placeholder="お名前を入力してください。" css={inputTextStyle} onChange={onChangeNameFlag}/>
                 <label css={cloumnSize}>メールアドレス <span css={requiredIcons}>*</span></label>
-                <input type="email" name="user_email" placeholder="あなたのメールアドレスを入力してください。" css={inputTextStyle}/>
+                <input type="email" name="user_email" placeholder="メールアドレスを入力してください。" css={inputTextStyle} onChange={onChangeEmailFlag}/>
                 <label css={cloumnSize}>メッセージ <span css={requiredIcons}>*</span></label>
                 <textarea name="message" placeholder="お問合せの内容を入力してください。" css={[inputTextStyle, textareaStyle]}/>
-                <motion.button type="submit" css={[inputButtonStyle, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.3 }} whileHover={{ y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
+                <motion.button disabled={submitFlag} type="submit" css={[inputButtonStyle, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.2 }} whileHover={ submitFlag ? {} : { y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
               </form>
             </div>
           </div>
