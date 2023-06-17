@@ -16,10 +16,13 @@ const overlay = css`
 
 const modalWrapper = css`
   position: absolute;
-  top: 5%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
   padding: 2em 1.5em;
   margin: 0 2em;
   background: #f2f0e9;
+  border-radius: 5px;
   z-index: 11;
 `;
 

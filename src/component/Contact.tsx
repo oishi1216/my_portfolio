@@ -8,6 +8,10 @@ import { css } from "@emotion/react";
 import { common } from "../styles/common";
 import emailjs from '@emailjs/browser';
 import { useCheckText } from "../hooks/useCheckText";
+import { mailModalsData } from"../data/PortfolioData";
+import { Modal } from "../hooks/useModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const formWrapper = css`
   padding: 2em 0 1em;
@@ -23,6 +27,12 @@ const formStyle = css`
 
 const requiredIcons = css`
   color: #ff0000;
+`
+
+const labelStayle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items:flex-end;
 `
 
 const inputTextStyle = css`
@@ -54,6 +64,75 @@ const cloumnSize = css`
   margin-top: 1em;
 `
 
+const annotationOK = css`
+  position: relative;
+  color: #25AF01;
+  font-size: .8em;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: .4em;
+    left: -1.3em;
+    width: 1em;
+    height: .5em;
+    border-left: .125em solid #25AF01;
+    border-bottom: .125em solid #25AF01;
+    transform: rotate(-45deg);
+  }
+`
+
+const annotationNG = css`
+  position: relative;
+  color: #ff0000;
+  font-size: .8em;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: .2em;
+    left: -.9em;
+    width: .125em;
+    height: 1.1em;
+    background-color: #ff0000;
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: .2em;
+    left: -.9em;
+    width: .125em;
+    height: 1.1em;
+    background-color: #ff0000;
+    transform: rotate(135deg);
+  }
+`
+
+const modalCloseBtn = css`
+  position: absolute;
+  top: .1em;
+  right: 0.5em;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #333;
+`;
+
+const modalOKTitleStyle = css`
+  color: #25AF01;
+  font-size: 1.5em;
+`
+
+const modalNGTitleStyle = css`
+  color: #ff0000;
+  font-size: 1.5em;
+`
+const modalTextStyle = css`
+  margin-top: 1em;
+`
+
 export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
   ({ id, isIntersecting }, ref) => {
     const form = useRef<HTMLFormElement>(null);
@@ -61,6 +140,8 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
     const [emailFlag, setEmailFlag] = useState<Array<boolean>>([false, false]);
     const [messageFlag, setMessageFlag] = useState<boolean>(false);
     const [submitFlag, setSubmitFlag] = useState<boolean>(true);
+    const [openMailModals, setOpenMailModals] = useState<Array<boolean>>([false, false]);
+
 
     const { checkText } = useCheckText();
 
@@ -68,10 +149,17 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
       e.preventDefault();
       emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, form.current!, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
       .then((result) => {
-        console.log(result.text);
+        const modalArr = [...openMailModals];
+        modalArr[0] = true;
+        setOpenMailModals(modalArr);
         form.current?.reset();
+        setNameFlag([false, false]);
+        setEmailFlag([false, false]);
+        setMessageFlag(false);
       },(error) => {
-        console.log(error.text);
+        const modalArr = [...openMailModals];
+        modalArr[1] = true;
+        setOpenMailModals(modalArr);
       });
     }
 
@@ -90,6 +178,14 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
       setMessageFlag(newMessage);
     }
 
+    const onClickChangeMailModal = (index: number) => {
+      const modalArr = openMailModals.map((modal, idx) => {
+        return idx === index ? !modal : modal;
+      })
+
+      setOpenMailModals(modalArr)
+    }
+
     useEffect(() => {
       nameFlag[1] && emailFlag[1] && messageFlag ? setSubmitFlag(false) : setSubmitFlag(true);
     }, [nameFlag, emailFlag, messageFlag]);
@@ -102,15 +198,28 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
           <div css={common.contentWrapper}>
             <div css={formWrapper}>
               <form ref={form} onSubmit={sendEmail} css={formStyle}>
-                <label>お名前 <span css={requiredIcons}>*</span></label>
+                <label css={labelStayle}><span>お名前 <span css={requiredIcons}>*</span></span>{nameFlag[0] ? nameFlag[1] ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>名前に記号が含まれています</span> : <span css={annotationNG}>名前を入力してください</span>}</label>
                 <input type="text" name="user_name" placeholder="お名前を入力してください。" css={inputTextStyle} onChange={onChangeNameFlag}/>
-                <label css={cloumnSize}>メールアドレス <span css={requiredIcons}>*</span></label>
+                <label css={[labelStayle, cloumnSize]}><span>メールアドレス <span css={requiredIcons}>*</span></span>{emailFlag[0] ? emailFlag[1] ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>メールアドレスの形式が正しくありません</span> : <span css={annotationNG}>メールアドレスを入力してください</span>} </label>
                 <input type="email" name="user_email" placeholder="メールアドレスを入力してください。" css={inputTextStyle} onChange={onChangeEmailFlag}/>
-                <label css={cloumnSize}>メッセージ <span css={requiredIcons}>*</span></label>
+                <label css={[labelStayle, cloumnSize]}><span>メッセージ <span css={requiredIcons}>*</span></span>{messageFlag ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>お問合せ内容を入力してください</span>}</label>
                 <textarea name="message" placeholder="お問合せの内容を入力してください。" css={[inputTextStyle, textareaStyle]} onChange={onChangeMessageFlag}/>
                 <motion.button disabled={submitFlag} type="submit" css={[inputButtonStyle, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.2 }} whileHover={ submitFlag ? {} : { y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
               </form>
             </div>
+            {mailModalsData.map((modal, index) => {
+              return(
+                <Modal key={modal.id} index={index} openModals={openMailModals} onClose={() => onClickChangeMailModal(index)}>
+                  <div css={modalCloseBtn} onClick={() => onClickChangeMailModal(index)}>
+                    <FontAwesomeIcon icon={faCircleXmark} />
+                  </div>
+                  <div>
+                    <h4 css={index === 0 ? modalOKTitleStyle : modalNGTitleStyle}>{modal.title}</h4>
+                    <p css={modalTextStyle}>{modal.text1}<br />{modal.text2}</p>
+                  </div>
+                </Modal>
+              )
+            })}
           </div>
         </SlideScaleChange>
       </div>
