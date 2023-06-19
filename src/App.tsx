@@ -12,11 +12,13 @@ import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
 import { Global, css } from "@emotion/react";
 import { common } from "./styles/common";
 import { style } from "./styles/global";
+import { useWindowSize } from "./hooks/useWindowSize";
 
 const App: FC = () => {
   const [currentTab, setCurrentTab] = useState<string>("home");
   const [isIntersecting, setIsIntersecting] = useState<boolean>(true);
   const [openModals, setopenModals] = useState<Array<boolean>>([false]);
+  const {windowWidth} = useWindowSize();
 
   const screenRef = useRef<HTMLDivElement>(null);
   const homeRef = useRef<HTMLDivElement>(null);
@@ -38,22 +40,29 @@ const App: FC = () => {
     screenRef.current!.onwheel = (event) => {
       const openModal = openModals.filter(item => item === true);
 
-      if (openModal.length) {
-        event.preventDefault();
-      } else {
-        event.preventDefault();
-        let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth;
-        if (delta > 0) {
-          delta += Math.ceil(screenRef.current!.scrollLeft);
-          delta = Math.floor(delta / window.innerWidth) * window.innerWidth;
-        } else {
-          delta += Math.floor(screenRef.current!.scrollLeft);
-          delta = Math.ceil(delta / window.innerWidth) * window.innerWidth;
+      if(windowWidth < 1025) {
+        if (openModal.length) {
+          event.preventDefault();
         }
-        screenRef.current!.scrollLeft = delta;
+      } else {
+        if (openModal.length) {
+          event.preventDefault();
+        } else {
+          event.preventDefault();
+          let delta = (event.deltaY / Math.abs(event.deltaY)) * window.innerWidth;
+          if (delta > 0) {
+            delta += Math.ceil(screenRef.current!.scrollLeft);
+            delta = Math.floor(delta / window.innerWidth) * window.innerWidth;
+          } else {
+            delta += Math.floor(screenRef.current!.scrollLeft);
+            delta = Math.ceil(delta / window.innerWidth) * window.innerWidth;
+          }
+          screenRef.current!.scrollLeft = delta;
+        }
       }
+
     };
-  }, [openModals]);
+  }, [openModals, windowWidth]);
 
   useIntersectionObserver(
     [contactRef, worksRef, skillsRef, aboutRef, homeRef],
