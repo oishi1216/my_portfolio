@@ -2,8 +2,11 @@ import { useLayoutEffect, useState } from "react"
 
 export const useWindowSize = () => {
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+    const [isDesktop, setIsDesktop] = useState<boolean>(true);
+
     const updateSize = () => {
         setWindowWidth(window.innerWidth);
+        window.innerWidth < 1025 ? setIsDesktop(false) : setIsDesktop(true);
     }
 
     useLayoutEffect(() => {
@@ -12,5 +15,5 @@ export const useWindowSize = () => {
         return () => window.removeEventListener("resize", updateSize);
     }, [])
 
-    return {windowWidth};
+    return {windowWidth, isDesktop};
 }
