@@ -23,7 +23,7 @@ const siteName = css`
 `;
 
 export const Home = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ id, isIntersecting }, ref) => {
+  ({ id, isIntersecting, isDesktop }, ref) => {
     const controls = useAnimationControls();
     const textAnimation = {
       init: {
@@ -50,11 +50,11 @@ export const Home = forwardRef<HTMLDivElement, ContainerProps>(
     }, []);
 
     return (
-      <div id={id} ref={ref} css={common.wrapper}>
+      <div id={id} ref={ref} css={isDesktop ? common.wrapperPC : common.wrapperSP}>
         <SlideScaleChange
           isIntersecting={isIntersecting}
         >
-          <div css={common.contentWrapper}>
+          <div css={isDesktop ? common.contentWrapperPC : common.contentWrapperSP}>
             <Particle />
             <div css={siteNameWrapper}>
               <div css={siteName}>

@@ -1,5 +1,7 @@
 import React, { FC, ReactNode, useEffect } from 'react';
 import { motion, useAnimation } from "framer-motion";
+import { useWindowSize } from './useWindowSize';
+
 
 type Props = {
     children: ReactNode;
@@ -7,6 +9,7 @@ type Props = {
 }
 
 export const SlideScaleChange: FC<Props> = ({ children, isIntersecting }) => {
+    const {isDesktop} = useWindowSize();
     const control = useAnimation();
     const scaleChange = {
         reduction: {
@@ -22,7 +25,7 @@ export const SlideScaleChange: FC<Props> = ({ children, isIntersecting }) => {
     }
 
     useEffect(() => {
-        if(!isIntersecting) {
+        if(!isIntersecting && isDesktop) {
             control.start("reduction");
         } else {
             control.start("enlargement");
@@ -30,6 +33,6 @@ export const SlideScaleChange: FC<Props> = ({ children, isIntersecting }) => {
     }, [isIntersecting])
 
     return(
-        <motion.div initial='enlargement' animate={control} variants={scaleChange}>{ children }</motion.div>
+        <motion.div initial='enlargement' animate={control} variants={ scaleChange}>{ children }</motion.div>
     );
 }

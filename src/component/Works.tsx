@@ -12,12 +12,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { worksData, modalsData } from "../data/PortfolioData"
 
-const worksWrapper = css`
+const worksWrapperPC = css`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 auto;
   max-width: 1080px;
+  padding: 1.25em;
+`;
+
+const worksWrapperSP = css`
+  margin: 0 auto;
   padding: 1.25em;
 `;
 
@@ -85,7 +90,7 @@ const modalImageArea = css`
 `;
 
 export const Works = forwardRef<HTMLDivElement, WorksProps>(
-  ({ id, isIntersecting, openModals, setopenModals }, ref) => {
+  ({ id, isIntersecting, isDesktop, openModals, setopenModals }, ref) => {
     const onClickChangeModal = (index: number) => {
       const modalInfoArr = openModals.map((modal, idx) => {
         return idx === index ? !modal : modal;
@@ -95,10 +100,10 @@ export const Works = forwardRef<HTMLDivElement, WorksProps>(
     };
 
     return (
-      <div id={id} ref={ref} css={common.wrapper}>
+      <div id={id} ref={ref} css={isDesktop ? common.wrapperPC : common.wrapperSP}>
         <SlideScaleChange isIntersecting={isIntersecting}>
-          <div css={common.contentWrapper}>
-            <div css={worksWrapper}>
+          <div css={isDesktop ? common.contentWrapperPC : common.contentWrapperSP}>
+            <div css={isDesktop ? worksWrapperPC : worksWrapperSP}>
               {worksData.map((data, index) => {
                 return(
                   <div key={data.id} css={workWrapper}>

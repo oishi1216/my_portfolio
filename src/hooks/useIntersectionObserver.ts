@@ -1,9 +1,9 @@
 import { RefObject, useEffect } from "react";
 
 export const useIntersectionObserver = (
-    refs: RefObject<HTMLElement>[],
-    callback: (entries: IntersectionObserverEntry[]) => void,
-    options?: IntersectionObserverInit
+        refs: RefObject<HTMLElement>[],
+        callback: (entries: IntersectionObserverEntry[]) => void,
+        options?: IntersectionObserverInit
     ): void => {
     useEffect(() => {
         const observer = new IntersectionObserver(callback, options)

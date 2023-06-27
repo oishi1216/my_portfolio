@@ -4,6 +4,11 @@ import { ModalProps } from "../types/Props";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
+const modalContainer = css`
+  position: fixed;
+  z-index: 10;
+`
+
 const overlay = css`
   position: fixed;
   top: 0;
@@ -15,10 +20,10 @@ const overlay = css`
 `;
 
 const modalWrapper = css`
-  position: absolute;
-  top: 40%;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -50%);
   padding: 2em 1.5em;
   margin: 0 2em;
   background: #f2f0e9;
@@ -35,6 +40,7 @@ export const Modal: FC<ModalProps> = ({ index, openModals, onClose, children }) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          css={modalContainer}
         >
           <div css={overlay} onClick={onClose} />
           <div css={modalWrapper}>{children}</div>

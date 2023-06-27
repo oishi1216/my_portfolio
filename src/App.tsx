@@ -18,7 +18,7 @@ const App: FC = () => {
   const [currentTab, setCurrentTab] = useState<string>("home");
   const [isIntersecting, setIsIntersecting] = useState<boolean>(true);
   const [openModals, setopenModals] = useState<Array<boolean>>([false]);
-  const {windowWidth} = useWindowSize();
+  const {isDesktop} = useWindowSize();
 
   const screenRef = useRef<HTMLDivElement>(null);
   const homeRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ const App: FC = () => {
     screenRef.current!.onwheel = (event) => {
       const openModal = openModals.filter(item => item === true);
 
-      if(windowWidth < 1025) {
+      if(!isDesktop) {
         if (openModal.length) {
           event.preventDefault();
         }
@@ -62,7 +62,7 @@ const App: FC = () => {
       }
 
     };
-  }, [openModals, windowWidth]);
+  }, [openModals, isDesktop]);
 
   useIntersectionObserver(
     [contactRef, worksRef, skillsRef, aboutRef, homeRef],
@@ -73,31 +73,36 @@ const App: FC = () => {
   return (
     <>
       <Global styles={style} />
-      <div ref={screenRef} css={common.screen}>
-        <div css={common.container}>
+      <div ref={screenRef}  css={common.screen}>
+        <div css={isDesktop ? common.containerPC : common.containerSP}>
           <Header
             currentTab={currentTab}
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
           />
           <Home
             ref={homeRef}
             id="home"
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
           />
           <About
             ref={aboutRef}
             id="about"
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
           />
           <Skills
             ref={skillsRef}
             id="skills"
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
           />
           <Works
             ref={worksRef}
             id="works"
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
             openModals={openModals}
             setopenModals={setopenModals}
           />
@@ -105,6 +110,7 @@ const App: FC = () => {
             ref={contactRef}
             id="contact"
             isIntersecting={isIntersecting}
+            isDesktop={isDesktop}
           />
         </div>
       </div>

@@ -9,12 +9,16 @@ export const common = {
         scrollBehavior: 'smooth',
         backgroundColor: '#C3B68F',
     }),
-    container: css({
+    containerPC: css({
         width: '500vw',
         height: '100%',
         display: 'flex',
     }),
-    wrapper: css({
+    containerSP: css({
+        height: '100%',
+        display: 'block',
+    }),
+    wrapperPC: css({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -22,10 +26,40 @@ export const common = {
         height: 'calc(100% - 4rem)',
         marginTop: '4rem',
     }),
-    contentWrapper: css({
+    wrapperSP: css({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100vw',
+        height: '100%',
+    }),
+    wrapperVariableSP: css({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100vw',
+    }),
+    contentWrapperPC: css({
         position: 'relative',
         width: '100%',
         height: '100%',
         backgroundColor: '#F2F0E9',
-    })
+    }),
+    contentWrapperSP: css({
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#F2F0E9',
+        paddingTop: '4rem'
+    }),
+    headlineTitleSP: css({
+        textAlign: 'center',
+        fontFamily: 'Capriola',
+        fontSize: '3em',
+    }),
+    headlineIconSP: css({
+        fontSize: '.8em',
+        verticalAlign: 'baseline',
+        marginRight: '.3em',
+    }),
 }

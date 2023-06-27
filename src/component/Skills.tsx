@@ -11,15 +11,21 @@ import {
   faDesktop,
   faServer,
   faToolbox,
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
 
-const skillsContainer = css`
+const skillsContainerPC = css`
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
   max-width: 1080px;
   padding: 1.25em .5em .5em;
 `;
+
+const skillsContainerSP = css`
+  margin: 0 auto;
+  padding: 0 .5em;
+`
 
 const tableWrapper = css`
   flex-basis: 23em;
@@ -28,6 +34,14 @@ const tableWrapper = css`
   color: #333;
   text-align: center;
 `;
+
+const tableFirstMarginSP = css`
+  margin-top: .5em;
+`
+
+const tableMarginSP = css`
+  margin-top: 1.25em;
+`
 
 const tableHeadline = css`
   font-size: 1.4em;
@@ -49,16 +63,19 @@ const column = css`
 `;
 
 export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ id, isIntersecting }, ref) => {
+  ({ id, isIntersecting, isDesktop }, ref) => {
 
     return (
-      <div id={id} ref={ref} css={common.wrapper}>
+      <div id={id} ref={ref} css={isDesktop ? common.wrapperPC : common.wrapperVariableSP}>
         <SlideScaleChange
           isIntersecting={isIntersecting}
         >
-          <div css={common.contentWrapper}>
-            <div css={skillsContainer}>
-              <div css={tableWrapper}>
+          <div css={isDesktop ? common.contentWrapperPC : common.contentWrapperSP}>
+            <div css={isDesktop ? skillsContainerPC : skillsContainerSP}>
+              {!isDesktop &&
+                <h2 css={common.headlineTitleSP}><FontAwesomeIcon icon={faCode} css={common.headlineIconSP} />Skills</h2>
+              }
+              <div css={ isDesktop ? tableWrapper : [tableWrapper, tableFirstMarginSP] }>
                 <h3 css={tableHeadline}>
                   <FontAwesomeIcon icon={faDesktop} css={icon} />
                   フロントエンド
@@ -105,7 +122,7 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
                   </tbody>
                 </table>
               </div>
-              <div css={tableWrapper}>
+              <div css={ isDesktop ? tableWrapper : [tableWrapper, tableMarginSP] }>
                 <h3 css={tableHeadline}>
                   <FontAwesomeIcon icon={faServer} css={icon} />
                   サーバー
@@ -138,8 +155,8 @@ export const Skills = forwardRef<HTMLDivElement, ContainerProps>(
                 </table>
               </div>
             </div>
-            <div css={skillsContainer}>
-              <div css={tableWrapper}>
+            <div css={isDesktop ? skillsContainerPC : skillsContainerSP}>
+              <div css={ isDesktop ? tableWrapper : [tableWrapper, tableMarginSP]}>
                 <h3 css={tableHeadline}>
                   <FontAwesomeIcon icon={faToolbox} css={icon} />
                   その他

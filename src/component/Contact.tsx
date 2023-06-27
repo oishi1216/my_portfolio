@@ -134,7 +134,7 @@ const modalTextStyle = css`
 `
 
 export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ id, isIntersecting }, ref) => {
+  ({ id, isIntersecting, isDesktop }, ref) => {
     const form = useRef<HTMLFormElement>(null);
     const [nameFlag, setNameFlag] = useState<Array<boolean>>([false, false]);
     const [emailFlag, setEmailFlag] = useState<Array<boolean>>([false, false]);
@@ -191,11 +191,11 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
     }, [nameFlag, emailFlag, messageFlag]);
 
     return (
-      <div id={id} ref={ref} css={common.wrapper}>
+      <div id={id} ref={ref} css={isDesktop ? common.wrapperPC : common.wrapperSP}>
         <SlideScaleChange
           isIntersecting={isIntersecting}
         >
-          <div css={common.contentWrapper}>
+          <div css={isDesktop ? common.contentWrapperPC : common.contentWrapperSP}>
             <div css={formWrapper}>
               <form ref={form} onSubmit={sendEmail} css={formStyle}>
                 <label css={labelStayle}><span>お名前 <span css={requiredIcons}>*</span></span>{nameFlag[0] ? nameFlag[1] ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>名前に記号が含まれています</span> : <span css={annotationNG}>名前を入力してください</span>}</label>
