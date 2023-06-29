@@ -24,8 +24,8 @@ const modalWrapper = css`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 70%;
   padding: 2em 1.5em;
-  margin: 0 2em;
   background: #f2f0e9;
   border-radius: 5px;
   z-index: 11;

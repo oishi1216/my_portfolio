@@ -11,7 +11,7 @@ import { useCheckText } from "../hooks/useCheckText";
 import { mailModalsData } from"../data/PortfolioData";
 import { Modal } from "../hooks/useModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const formWrapper = css`
   padding: 2em 0 1em;
@@ -23,16 +23,22 @@ const formWrapper = css`
 const formStyle = css`
   display: flex;
   flex-direction: column;
+  margin-top: .5em;
 `
 
 const requiredIcons = css`
   color: #ff0000;
 `
 
-const labelStayle = css`
+const labelStaylePC = css`
   display: flex;
   justify-content: space-between;
   align-items:flex-end;
+`
+
+const labelStayleSP = css`
+  display: flex;
+  flex-direction: column;
 `
 
 const inputTextStyle = css`
@@ -46,9 +52,22 @@ const textareaStyle = css`
   height: 15em;
 `
 
-const inputButtonStyle = css`
+const inputButtonStylePC = css`
   width: fit-content;
   text-align: start;
+  background-color: #fec463;
+  padding: 1em;
+  border-radius: 0.125em;
+  border: .0625em solid #333;
+
+  &:disabled {
+    color: rgba(51, 51, 51, .3);
+    background-color: rgba(254, 196, 99, .3);
+  }
+`
+
+const inputButtonStyleSP = css`
+  text-align: center;
   background-color: #fec463;
   padding: 1em;
   border-radius: 0.125em;
@@ -111,6 +130,10 @@ const annotationNG = css`
   }
 `
 
+const annotationMarginSP = css`
+  margin-left: 1.5em;
+`
+
 const modalCloseBtn = css`
   position: absolute;
   top: .1em;
@@ -118,6 +141,7 @@ const modalCloseBtn = css`
   font-size: 1.5em;
   cursor: pointer;
   color: #333;
+  z-index: 1;
 `;
 
 const modalOKTitleStyle = css`
@@ -131,6 +155,11 @@ const modalNGTitleStyle = css`
 `
 const modalTextStyle = css`
   margin-top: 1em;
+`
+
+const headlineIconStyle = css`
+  font-size: 1em;
+  margin-right: 0.3em;
 `
 
 export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
@@ -197,14 +226,17 @@ export const Contact = forwardRef<HTMLDivElement, ContainerProps>(
         >
           <div css={isDesktop ? common.contentWrapperPC : common.contentWrapperSP}>
             <div css={formWrapper}>
+              {!isDesktop &&
+                <h2 css={common.headlineTitleSP}><FontAwesomeIcon icon={faEnvelope} css={headlineIconStyle} />Contact</h2>
+              }
               <form ref={form} onSubmit={sendEmail} css={formStyle}>
-                <label css={labelStayle}><span>お名前 <span css={requiredIcons}>*</span></span>{nameFlag[0] ? nameFlag[1] ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>名前に記号が含まれています</span> : <span css={annotationNG}>名前を入力してください</span>}</label>
+                <label css={isDesktop ? labelStaylePC : labelStayleSP}><span>お名前 <span css={requiredIcons}>*</span></span>{nameFlag[0] ? nameFlag[1] ? <span css={isDesktop ? annotationOK : [annotationOK, annotationMarginSP]}>OK</span> : <span css={isDesktop ? annotationNG : [annotationNG, annotationMarginSP]}>名前に記号が含まれています</span> : <span css={isDesktop ? annotationNG : [annotationNG, annotationMarginSP]}>名前を入力してください</span>}</label>
                 <input type="text" name="user_name" placeholder="お名前を入力してください。" css={inputTextStyle} onChange={onChangeNameFlag}/>
-                <label css={[labelStayle, cloumnSize]}><span>メールアドレス <span css={requiredIcons}>*</span></span>{emailFlag[0] ? emailFlag[1] ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>メールアドレスの形式が正しくありません</span> : <span css={annotationNG}>メールアドレスを入力してください</span>} </label>
+                <label css={isDesktop ? [labelStaylePC, cloumnSize] : [labelStayleSP, cloumnSize]}><span>メールアドレス <span css={requiredIcons}>*</span></span>{emailFlag[0] ? emailFlag[1] ? <span css={isDesktop ? annotationOK : [annotationOK, annotationMarginSP]}>OK</span> : <span css={isDesktop ? annotationNG : [annotationNG, annotationMarginSP]}>メールアドレスの形式が正しくありません</span> : <span css={isDesktop ? annotationNG : [annotationNG, annotationMarginSP]}>メールアドレスを入力してください</span>} </label>
                 <input type="email" name="user_email" placeholder="メールアドレスを入力してください。" css={inputTextStyle} onChange={onChangeEmailFlag}/>
-                <label css={[labelStayle, cloumnSize]}><span>メッセージ <span css={requiredIcons}>*</span></span>{messageFlag ? <span css={annotationOK}>OK</span> : <span css={annotationNG}>お問合せ内容を入力してください</span>}</label>
+                <label css={isDesktop ? [labelStaylePC, cloumnSize] : [labelStayleSP, cloumnSize]}><span>メッセージ <span css={requiredIcons}>*</span></span>{messageFlag ? <span css={isDesktop ? annotationOK : [annotationOK, annotationMarginSP]}>OK</span> : <span css={isDesktop ? annotationNG : [annotationNG, annotationMarginSP]}>お問合せ内容を入力してください</span>}</label>
                 <textarea name="message" placeholder="お問合せの内容を入力してください。" css={[inputTextStyle, textareaStyle]} onChange={onChangeMessageFlag}/>
-                <motion.button disabled={submitFlag} type="submit" css={[inputButtonStyle, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.2 }} whileHover={ submitFlag ? {} : { y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
+                <motion.button disabled={submitFlag} type="submit" css={isDesktop ? [inputButtonStylePC, cloumnSize] : [inputButtonStyleSP, cloumnSize]} initial={{boxShadow: "0px 5px 0px #333"}} transition={{ duration: 0.2 }} whileHover={ submitFlag ? {} : { y: "5px", boxShadow: "0px 0px 0px #333" }}>お問合せ内容を送信</motion.button>
               </form>
             </div>
             {mailModalsData.map((modal, index) => {
