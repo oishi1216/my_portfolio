@@ -4,7 +4,7 @@ export const useCheckText = () => {
     const checkText = (array: Array<boolean>, value:string, itemName: string) => {
         const newArray = [...array];
 
-        const reg = itemName === 'name' ? new RegExp(/[!"#$%&'()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]/g) : new RegExp(/^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/);
+        const reg = itemName === 'name' ? new RegExp(/[!"#$%&'()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]/g) : new RegExp(/^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+(com|co.jp|ne.jp|or.jp|jp)$/);
         const checkName = reg.test(value);
         newArray[0] = value !== '' ? true : false;
 
